@@ -7,7 +7,6 @@ description 'rsg-sellvendor'
 
 client_script {
 	'client/client.lua',
-	'client/npc.lua',
 	'config.lua'
 }
 
