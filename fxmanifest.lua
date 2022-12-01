@@ -6,12 +6,12 @@ author 'RexShack#3041'
 description 'rsg-sellvendor'
 
 client_script {
-	'client/client.lua',
-	'config.lua'
+    'client/client.lua',
+    'config.lua'
 }
 
 server_script {
-	'server/server.lua',
+    'server/server.lua',
 }
 
 dependency 'qr-core'

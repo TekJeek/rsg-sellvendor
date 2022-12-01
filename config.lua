@@ -12,6 +12,7 @@ Config.VendorShops = {
             blipScale = 0.2,
             bliptext = "Valentine Vendor",
         },
+        showmarker = true,
         shopdata = { -- shop data
             {
                 title = "Bread",

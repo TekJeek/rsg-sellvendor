@@ -10,6 +10,19 @@ Citizen.CreateThread(function()
     end
 end)
 
+-- draw marker if set to true in config
+CreateThread(function()
+    while true do
+        local sleep = 0
+        for k,v in pairs(Config.VendorShops) do
+            if v.showmarker == true then
+                Citizen.InvokeNative(0x2A32FAA57B937173, 0x07DCE236, v.pos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 255, 215, 0, 155, false, false, false, 1, false, false, false)
+            end
+        end
+        Wait(sleep)
+    end
+end)
+
 RegisterNetEvent('rsg-sellvendor:client:openmenu') 
 AddEventHandler('rsg-sellvendor:client:openmenu', function(menuid)
     local shoptable = {
@@ -29,7 +42,7 @@ AddEventHandler('rsg-sellvendor:client:openmenu', function(menuid)
         if v.uid == menuid then
             for g,f in pairs(v.shopdata) do
                 local lineintable = {
-					header = "<img src=nui://qr-inventory/html/images/"..f.image.." width=20px>"..f.title..' (price $'..f.price..')',
+                    header = "<img src=nui://qr-inventory/html/images/"..f.image.." width=20px>"..f.title..' (price $'..f.price..')',
                     params = {
                         event = 'rsg-sellvendor:client:sellcount',
                         args = {menuid, f}
@@ -40,7 +53,7 @@ AddEventHandler('rsg-sellvendor:client:openmenu', function(menuid)
         end
     end
     table.insert(shoptable,closemenu)
-	exports['qr-menu']:openMenu(shoptable)
+    exports['qr-menu']:openMenu(shoptable)
 end)
 
 RegisterNetEvent('rsg-sellvendor:client:sellcount') 
@@ -49,19 +62,19 @@ AddEventHandler('rsg-sellvendor:client:sellcount', function(arguments)
     local data = arguments[2]
     local inputdata = exports['qr-input']:ShowInput({
         header = "Enter the number of 1pc / "..data.price.." $",
-		submitText = "sell",
-		inputs = {
+        submitText = "sell",
+        inputs = {
             {
                 text = data.description,
                 input = "amount",
                 type = "number",
                 isRequired = true
             },
-		}
+        }
     })
     if inputdata ~= nil then
         for k,v in pairs(inputdata) do
-			TriggerServerEvent('rsg-sellvendor:server:sellitem', v,data)
+            TriggerServerEvent('rsg-sellvendor:server:sellitem', v,data)
         end
     end
 end)
