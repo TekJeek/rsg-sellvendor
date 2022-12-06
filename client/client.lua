@@ -1,12 +1,30 @@
 local QRCore = exports['qr-core']:GetCoreObject()
-
+--[[
 Citizen.CreateThread(function()
     for k,v in pairs(Config.VendorShops) do
-        exports['qr-core']:createPrompt(v.uid, v.pos, QRCore.Shared.Keybinds['J'], v.header, {
+        exports['qr-core']:createPrompt(v.prompt, v.coords, QRCore.Shared.Keybinds['J'], v.header, {
             type = 'client',
             event = 'rsg-sellvendor:client:openmenu',
-            args = {v.uid}
+            args = {v.prompt}
         })  
+    end
+end)
+--]]
+
+-- prompts and blips
+Citizen.CreateThread(function()
+    for sellvendor, v in pairs(Config.VendorShops) do
+        exports['qr-core']:createPrompt(v.prompt, v.coords, QRCore.Shared.Keybinds['J'], v.header, {
+            type = 'client',
+            event = 'rsg-sellvendor:client:openmenu',
+            args = { v.prompt },
+        })
+        if v.showblip == true then
+            local SellVendorBlip = Citizen.InvokeNative(0x554D9D53F696D002, 1664425300, v.coords)
+            SetBlipSprite(SellVendorBlip, GetHashKey(v.blip.blipSprite), true)
+            SetBlipScale(SellVendorBlip, v.blip.blipScale)
+            Citizen.InvokeNative(0x9CB1A1623062F402, SellVendorBlip, v.blip.blipName)
+        end
     end
 end)
 
@@ -16,7 +34,7 @@ CreateThread(function()
         local sleep = 0
         for k,v in pairs(Config.VendorShops) do
             if v.showmarker == true then
-                Citizen.InvokeNative(0x2A32FAA57B937173, 0x07DCE236, v.pos, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 255, 215, 0, 155, false, false, false, 1, false, false, false)
+                Citizen.InvokeNative(0x2A32FAA57B937173, 0x07DCE236, v.coords, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 255, 215, 0, 155, false, false, false, 1, false, false, false)
             end
         end
         Wait(sleep)
@@ -39,7 +57,7 @@ AddEventHandler('rsg-sellvendor:client:openmenu', function(menuid)
         }
     }
     for k,v in pairs(Config.VendorShops) do
-        if v.uid == menuid then
+        if v.prompt == menuid then
             for g,f in pairs(v.shopdata) do
                 local lineintable = {
                     header = "<img src=nui://qr-inventory/html/images/"..f.image.." width=20px>"..f.title..' (price $'..f.price..')',
@@ -82,7 +100,7 @@ end)
 
 function getMenuTitle(menuid)
     for k,v in pairs(Config.VendorShops)  do
-        if menuid == v.uid then
+        if menuid == v.prompt then
             return v.header
         end
     end
