@@ -5,7 +5,7 @@ Config.VendorShops = {
     {
         prompt = "val-sellshop",  -- must be unique
         header = "Valentine Vendor", -- menu header
-        coords = vector3(-355.7784, 775.41345, 116.23655), -- location of sell shop
+        coords = vector3(-355.7784, 775.41345, 116.23655 -0.8), -- location of sell shop
         blip = { -- blip settings
             blipSprite = 'blip_shop_market_stall',
             blipScale = 0.2,
