@@ -14,8 +14,8 @@ server_script {
     'server/server.lua',
 }
 
-dependency 'qr-core'
-dependency 'qr-menu'
-dependency 'qr-input'
+dependency 'rsg-core'
+dependency 'rsg-menu'
+dependency 'rsg-input'
 
 lua54 'yes'

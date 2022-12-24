@@ -1,20 +1,9 @@
-local QRCore = exports['qr-core']:GetCoreObject()
---[[
-Citizen.CreateThread(function()
-    for k,v in pairs(Config.VendorShops) do
-        exports['qr-core']:createPrompt(v.prompt, v.coords, QRCore.Shared.Keybinds['J'], v.header, {
-            type = 'client',
-            event = 'rsg-sellvendor:client:openmenu',
-            args = {v.prompt}
-        })  
-    end
-end)
---]]
+local RSGCore = exports['rsg-core']:GetCoreObject()
 
 -- prompts and blips
 Citizen.CreateThread(function()
     for sellvendor, v in pairs(Config.VendorShops) do
-        exports['qr-core']:createPrompt(v.prompt, v.coords, QRCore.Shared.Keybinds['J'], v.header, {
+        exports['rsg-core']:createPrompt(v.prompt, v.coords, RSGCore.Shared.Keybinds['J'], v.header, {
             type = 'client',
             event = 'rsg-sellvendor:client:openmenu',
             args = { v.prompt },
@@ -60,7 +49,7 @@ AddEventHandler('rsg-sellvendor:client:openmenu', function(menuid)
         if v.prompt == menuid then
             for g,f in pairs(v.shopdata) do
                 local lineintable = {
-                    header = "<img src=nui://qr-inventory/html/images/"..f.image.." width=20px>"..f.title..' (price $'..f.price..')',
+                    header = "<img src=nui://rsg-inventory/html/images/"..f.image.." width=20px>"..f.title..' (price $'..f.price..')',
                     params = {
                         event = 'rsg-sellvendor:client:sellcount',
                         args = {menuid, f}
@@ -71,14 +60,14 @@ AddEventHandler('rsg-sellvendor:client:openmenu', function(menuid)
         end
     end
     table.insert(shoptable,closemenu)
-    exports['qr-menu']:openMenu(shoptable)
+    exports['rsg-menu']:openMenu(shoptable)
 end)
 
 RegisterNetEvent('rsg-sellvendor:client:sellcount') 
 AddEventHandler('rsg-sellvendor:client:sellcount', function(arguments)
     local menuid = arguments[1]
     local data = arguments[2]
-    local inputdata = exports['qr-input']:ShowInput({
+    local inputdata = exports['rsg-input']:ShowInput({
         header = "Enter the number of 1pc / "..data.price.." $",
         submitText = "sell",
         inputs = {

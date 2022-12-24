@@ -1,9 +1,9 @@
-local QRCore = exports['qr-core']:GetCoreObject()
+local RSGCore = exports['rsg-core']:GetCoreObject()
 
 RegisterServerEvent('rsg-sellvendor:server:sellitem')
 AddEventHandler('rsg-sellvendor:server:sellitem', function(amount, data)
     local src = source
-    local Player = QRCore.Functions.GetPlayer(src)
+    local Player = RSGCore.Functions.GetPlayer(src)
     local amount = tonumber(amount)
     local checkitem = Player.Functions.GetItemByName(data.item)
     if amount >= 0 then
@@ -12,17 +12,16 @@ AddEventHandler('rsg-sellvendor:server:sellitem', function(amount, data)
             if amountitem >= amount then
                 totalcash = (amount * data.price) 
                 Player.Functions.RemoveItem(data.item, amount)
-                TriggerClientEvent('inventory:client:ItemBox', src, QRCore.Shared.Items[data.item], "remove")
+                TriggerClientEvent('inventory:client:ItemBox', src, RSGCore.Shared.Items[data.item], "remove")
                 Player.Functions.AddMoney('cash', totalcash)
-                TriggerClientEvent('QRCore:Notify', src, 'You sold ' ..amount.. ' for  $'..totalcash, 'success')
+                TriggerClientEvent('RSGCore:Notify', src, 'You sold ' ..amount.. ' for  $'..totalcash, 'success')
             else
-                TriggerClientEvent('QRCore:Notify', src, 'You don\'t have that much on you.', 'error')
+                TriggerClientEvent('RSGCore:Notify', src, 'You don\'t have that much on you.', 'error')
             end
         else
-            TriggerClientEvent('QRCore:Notify', src, 'You don\'t have an item on you', 'error')
+            TriggerClientEvent('RSGCore:Notify', src, 'You don\'t have an item on you', 'error')
         end
     else
-        TriggerClientEvent('QRCore:Notify', src, 'must not be a negative value.', 'error')
+        TriggerClientEvent('RSGCore:Notify', src, 'must not be a negative value.', 'error')
     end
 end)
-
