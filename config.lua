@@ -12,7 +12,6 @@ Config.VendorShops = {
             blipName = "Valentine Vendor",
         },
 		showblip = true,
-        showmarker = true,
         shopdata = { -- shop data
             {
                 title = "Bread",
@@ -41,7 +40,6 @@ Config.VendorShops = {
             blipName = "Guarma Vendor",
         },
         showblip = true,
-        showmarker = true,
         shopdata = { -- shop data
             {
                 title = "Box of Cigars",
