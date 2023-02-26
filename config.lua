@@ -11,7 +11,7 @@ Config.VendorShops = {
             blipScale = 0.2,
             blipName = "Valentine Vendor",
         },
-		showblip = true,
+        showblip = true,
         shopdata = { -- shop data
             {
                 title = "Bread",
@@ -26,6 +26,48 @@ Config.VendorShops = {
                 price = 0.03,
                 item = "water",
                 image = "water.png"
+            },
+        },
+    },
+    -- mining vendor
+    {
+        prompt = "mining1-sellshop",  -- must be unique
+        header = "Mining Vendor", -- menu header
+        coords = vector3(2435.36, -1511.59, 45.97), -- location of sell shop
+        blip = { -- blip settings
+            blipSprite = 'blip_shop_market_stall',
+            blipScale = 0.2,
+            blipName = "Mining Vendor",
+        },
+        showblip = true,
+        shopdata = { -- shop data
+            {
+                title = "Copper",
+                description = "sell copper",
+                price = 0.25,
+                item = "copper",
+            image = "copper.png"
+            },
+            {
+                title = "Aluminum",
+                description = "sell aluminum",
+                price = 0.30,
+                item = "aluminum",
+                image = "aluminum.png"
+            },
+            {
+                title = "Iron",
+                description = "sell iron",
+                price = 0.40,
+                item = "iron",
+                image = "iron.png"
+            },
+            {
+                title = "Steel",
+                description = "sell steel",
+                price = 0.50,
+                item = "steel",
+                image = "steel.png"
             },
         },
     },
