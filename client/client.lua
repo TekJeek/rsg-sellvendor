@@ -29,7 +29,7 @@ AddEventHandler('rsg-sellvendor:client:openmenu', function(menuid)
         header = "Close menu",
         txt = '', 
         params = {
-            event = 'qbr-menu:closeMenu',
+            event = 'rsg-menu:closeMenu',
         }
     }
     for k,v in pairs(Config.VendorShops) do
