@@ -4,6 +4,7 @@ game 'rdr3'
 
 author 'RexShack#3041'
 description 'rsg-sellvendor'
+version '1.0.0'
 
 client_script {
     'client/client.lua',
@@ -14,8 +15,10 @@ server_script {
     'server/server.lua',
 }
 
-dependency 'rsg-core'
-dependency 'rsg-menu'
-dependency 'rsg-input'
+dependencies {
+    'rsg-core',
+    'rsg-menu',
+    'rsg-input'
+}
 
 lua54 'yes'
