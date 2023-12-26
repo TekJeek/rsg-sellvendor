@@ -1,5 +1,8 @@
 Config = {}
 
+-- Inventory Images
+Config.img = "rsg-inventory/html/images/"
+
 Config.VendorShops = {
     -- valentine
     {
