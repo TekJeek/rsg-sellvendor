@@ -28,9 +28,10 @@ AddEventHandler('rsg-sellvendor:client:openmenu', function(menuid)
     for k, v in pairs(Config.VendorShops) do
         if v.prompt == menuid then
             for g,f in pairs(v.shopdata) do
+               local itemimg = "nui://"..Config.img..RSGCore.Shared.Items[tostring(f.item)].image  
                 options[#options + 1] = {
                     title = f.title..' ( vendor buy price $'..f.price..' )',
-                    icon = 'fa-solid fa-box',
+                    icon = itemimg,
                     event = 'rsg-sellvendor:client:sellcount',
                     args = { item = f.item , price = f.price, label = f.title },
                     arrow = true,
