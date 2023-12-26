@@ -31,30 +31,14 @@ end
 
 -----------------------------------------------------------------------
 
-RegisterServerEvent('rsg-sellvendor:server:sellitem')
-AddEventHandler('rsg-sellvendor:server:sellitem', function(amount, data)
+RegisterNetEvent('rsg-sellvendor:server:sellitem', function(item, amount, price)
     local src = source
     local Player = RSGCore.Functions.GetPlayer(src)
-    local amount = tonumber(amount)
-    local checkitem = Player.Functions.GetItemByName(data.item)
-    if amount >= 0 then
-        if checkitem ~= nil then
-            local amountitem = Player.Functions.GetItemByName(data.item).amount
-            if amountitem >= amount then
-                totalcash = (amount * data.price) 
-                Player.Functions.RemoveItem(data.item, amount)
-                TriggerClientEvent('inventory:client:ItemBox', src, RSGCore.Shared.Items[data.item], "remove")
-                Player.Functions.AddMoney('cash', totalcash)
-                TriggerClientEvent('RSGCore:Notify', src, 'You sold ' ..amount.. ' for  $'..totalcash, 'success')
-            else
-                TriggerClientEvent('RSGCore:Notify', src, 'You don\'t have that much on you.', 'error')
-            end
-        else
-            TriggerClientEvent('RSGCore:Notify', src, 'You don\'t have an item on you', 'error')
-        end
-    else
-        TriggerClientEvent('RSGCore:Notify', src, 'must not be a negative value.', 'error')
-    end
+    totalvalue = (amount * price)
+    Player.Functions.RemoveItem(item, amount)
+    TriggerClientEvent('inventory:client:ItemBox', src, RSGCore.Shared.Items[item], "remove")
+    Player.Functions.AddMoney('cash', totalvalue)
+    TriggerClientEvent('ox_lib:notify', src, {title = 'Item Sold', description = 'your item sold for $'..totalvalue, type = 'success', duration = 5000 })
 end)
 
 --------------------------------------------------------------------------------------------------
